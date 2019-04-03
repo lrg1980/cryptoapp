@@ -4,8 +4,11 @@ import Criptomoneda from './Criptomoneda';
 
 class Formulario extends Component {
      state = { 
-          criptomonedas : []
+          criptomonedas: [],
+          moneda: '',
+          criptomoneda:'' 
      }
+
      async componentWillMount() {
           const url =
             'https://min-api.cryptocompare.com/data/top/mktcapfull?fsym=BTC&tsym=USD&limit=20';
@@ -17,12 +20,24 @@ class Formulario extends Component {
                     })
                })
      }
+
+     // Se ejecuta cada que el usuario elige una opción del Select
+     obtenerValor = e => {
+          //console.log(e.target.name);
+          const { name, value } = e.target;
+          this.setState({
+               [name] : value
+          })
+     }
+
      render() { 
           return ( 
                <form>
                     <div className="row">
                          <label>Elige tu Moneda</label>
                          <select
+                              onChange={this.obtenerValor}
+                              name="moneda"
                               className="u-full-width">
                                    <option value="">Elige tu moneda</option>
                                    <option value="USD">Dolar Estadounidense</option>
@@ -40,14 +55,17 @@ class Formulario extends Component {
                     <div className="row">
                          <div>
                          <label>Elige tu Criptomoneda</label>
-                              <select className="u-full-width">
-                                   <option value="">Elige tu moneda</option>
-                                        {Object.keys(this.state.criptomonedas).map(key => (
-                                             <Criptomoneda
-                                                  key={key}
-                                                  criptomoneda={this.state.criptomonedas[key]}
-                                             />
-                                        ))}
+                              <select
+                                   onChange={this.obtenerValor}
+                                   name = "criptomoneda"
+                                   className = "u-full-width" >
+                                        <option value="">Elige tu moneda</option>
+                                             {Object.keys(this.state.criptomonedas).map(key => (
+                                                  <Criptomoneda
+                                                       key={key}
+                                                       criptomoneda={this.state.criptomonedas[key]}
+                                                  />
+                                             ))}
                               </select>
                          </div>
                     </div>
