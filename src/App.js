@@ -3,6 +3,7 @@ import imagen from './cryptomonedas.png';
 import Formulario from './componentes/Formulario';
 import Axios from 'axios';
 import Resultado from './componentes/Resultado';
+import Spinner from './componentes/Spinner';
 
 
 class App extends Component {
@@ -11,7 +12,8 @@ class App extends Component {
   state = {
     resultado: {},
     monedaSeleccionada: '',
-    criptoSeleccionada: ''
+    criptoSeleccionada: '',
+    cargando: false
   }
 
   cotizarCriptomoneda = async (cotizacion) => {
@@ -24,12 +26,23 @@ class App extends Component {
       .then(respuesta => {
         //console.log(respuesta)
         this.setState({
-          resultado: respuesta.data.DISPLAY[criptomoneda][moneda]
+          resultado: respuesta.data.DISPLAY[criptomoneda][moneda],
+          cargando: true
+        }, () => {
+            setTimeout(() => {
+              this.setState({
+                cargando: false
+              })
+            }, 3000);
         })
-      })
+      });
+    
+    // 3 Segundos despues, 
   }
 
   render() {
+    const resultado = (this.state.cargando) ? < Spinner /> : <Resultado resultado=
+                  {this.state.resultado}/> 
     return (
       
       <div className="container">
@@ -42,8 +55,7 @@ class App extends Component {
             <Formulario
               cotizarCriptomoneda={this.cotizarCriptomoneda}
             />
-            <Resultado
-              resultado={this.state.resultado}/>
+            {resultado}
           </div>
         </div>
       </div>

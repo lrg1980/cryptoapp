@@ -10,8 +10,8 @@ h1 {
     text-align: left;
     font-weight: 700;
     font-size: 50px;
-    margin-bottom: 50px;
-    margin-top: 80px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 h1::after {
     content: '';
@@ -29,7 +29,7 @@ label {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 20px;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 input[type="submit"]{
     margin-top: 20px;
@@ -50,6 +50,9 @@ input[type="submit"]{
 
 .resultado {
     color: white;
+    border: 1px solid white;
+    background-color: #264c85;
+    padding-left: 1rem;
 
 }
 .resultado h2 {
@@ -57,13 +60,13 @@ input[type="submit"]{
     color: white;
 }
 
-
 .resultado p {
     font-size: 18px!important;
 }
 .resultado p span {
     font-weight: bold;
 }
+
 p.precio{
     font-size: 30px!important;
 }
