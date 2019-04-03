@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import imagen from './cryptomonedas.png';
+import Formulario from './componentes/Formulario';
 
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
             <img src={imagen} alt="imagen" className="logotipo" />
           </div>
           <div className="one-half column">
-          2
+            <h1>Cotizador al instante</h1>
+            <Formulario />
           </div>
         </div>
       </div>
