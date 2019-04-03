@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
+import Criptomoneda from './Criptomoneda';
 
 class Formulario extends Component {
      state = { 
@@ -7,11 +8,10 @@ class Formulario extends Component {
      }
      async componentWillMount() {
           const url =
-            'https://min-api.cryptocompare.com/data/top/exchanges/full?fsym=BTC&tsym=USD&limit=20';
+            'https://min-api.cryptocompare.com/data/top/mktcapfull?fsym=BTC&tsym=USD&limit=20';
 
           await Axios.get(url)
                .then(respuesta => {
-                    //console.log(respuesta)
                     this.setState({
                          criptomonedas : respuesta.data.Data
                     })
@@ -40,12 +40,18 @@ class Formulario extends Component {
                     <div className="row">
                          <div>
                          <label>Elige tu Criptomoneda</label>
-                         <select className="u-full-width">
-                              <option value="">Elige tu moneda</option>
-                         </select>
+                              <select className="u-full-width">
+                                   <option value="">Elige tu moneda</option>
+                                        {Object.keys(this.state.criptomonedas).map(key => (
+                                             <Criptomoneda
+                                                  key={key}
+                                                  criptomoneda={this.state.criptomonedas[key]}
+                                             />
+                                        ))}
+                              </select>
                          </div>
                     </div>
-                    <input className="button-primary u-full-width" type="submit" value="Cotizar" />
+                         <input className="button-primary u-full-width" type="submit" value="Cotizar" />
                     </form>
            );
      }
