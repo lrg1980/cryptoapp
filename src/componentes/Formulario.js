@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
 import Criptomoneda from './Criptomoneda';
+import Error from './Error';
 
 class Formulario extends Component {
      state = { 
           criptomonedas: [],
           moneda: '',
-          criptomoneda:'' 
+          criptomoneda: '',
+          error: false
      }
 
      async componentWillMount() {
@@ -30,9 +32,43 @@ class Formulario extends Component {
           })
      }
 
+     // Validar que el usuario elija las monedas
+     cotizarMoneda = e => {
+          e.preventDefault();
+
+          const { moneda, criptomoneda } = this.state;
+          // validar que haya algo en el State
+          if (moneda === '' || criptomoneda === '') {
+               this.setState({
+                    error: true
+               }, () => {
+                    setTimeout(() => {
+                         this.setState({
+                              error: false
+                         })
+                    }, 3000);
+               });
+               return;
+          }
+
+          // crear el objeto
+          const cotizacion = {
+               moneda,
+               criptomoneda
+          }
+
+          // enviar los datos al componente App.js para cotizar
+          this.props.cotizarCriptomoneda(cotizacion);
+          
+     }
+
      render() { 
+          const mensaje = (this.state.error) ? <Error mensaje="Ambos campos son obligatorios" /> : '';
+
           return ( 
-               <form>
+               <form
+                    onSubmit={this.cotizarMoneda}>
+                    {mensaje}
                     <div className="row">
                          <label>Elige tu Moneda</label>
                          <select
