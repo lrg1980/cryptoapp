@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import imagen from './cryptomonedas.png';
 import Formulario from './componentes/Formulario';
 import Axios from 'axios';
+import Resultado from './componentes/Resultado';
 
 
 class App extends Component {
@@ -41,6 +42,8 @@ class App extends Component {
             <Formulario
               cotizarCriptomoneda={this.cotizarCriptomoneda}
             />
+            <Resultado
+              resultado={this.state.resultado}/>
           </div>
         </div>
       </div>
